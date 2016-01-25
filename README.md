@@ -1,4 +1,4 @@
-# BeanSprout
+# BeanSprout ![alt tag](http://i.imgur.com/e8csqpf.png) 
 A data mocking tool for C# application.
 
 BeanSprout automatically creates a concrete instance of your repository interfaces and generates fake data. This is useful for generating design time data.
