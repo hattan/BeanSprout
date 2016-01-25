@@ -24,3 +24,6 @@ BeanSprout automatically creates a concrete instance of your repository interfac
  var implementation = BS.Sprout<IFoo>(size);
  IEnumerable<Foo> data = implementation.GetFoos();
  ```
+ 
+## Installation
+Install BeanSprout via Nuget https://www.nuget.org/packages/BeanSprout/
