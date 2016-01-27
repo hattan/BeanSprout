@@ -63,6 +63,7 @@ namespace BeanSprout
 
         private static object GetPropertyValue(PropertyInfo propInfo)
         {
+            var pt = propInfo.PropertyType;
             object[] attrs = propInfo.GetCustomAttributes(true);
             foreach (var attr in attrs)
             {
@@ -109,7 +110,17 @@ namespace BeanSprout
                 if (attr.GetType() == typeof(DataType.Static))
                 {
                     var staticAttribute = attr as DataType.Static;
-                    return staticAttribute != null ? staticAttribute.Value : "";
+                    if (pt == typeof(string))
+                    {
+                        return staticAttribute != null ? staticAttribute.Value : "";
+                    }
+
+                    if (pt == typeof (bool))
+                    {
+                        return staticAttribute != null ? staticAttribute.BoolValue : false;
+                    }
+
+                    return null;
                 }
 
                 if (attr.GetType() == typeof(DataType.Range))
@@ -123,7 +134,7 @@ namespace BeanSprout
                 }
             }
 
-            var pt = propInfo.PropertyType;
+          
             if (pt.Name.ToLower().Contains("string"))
             {
                 return Company.Name();

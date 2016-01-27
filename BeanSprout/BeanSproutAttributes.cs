@@ -34,7 +34,13 @@ namespace BeanSprout.DataType
             Value = value;
         }
 
+        public Static(bool value)
+        {
+            BoolValue = value;
+        }
+
         public string Value { get; set; }
+        public bool BoolValue { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Property)]

@@ -104,6 +104,20 @@ namespace BeanSprout.Test
             Assert.True(item.Age >=1 && item.Age <= 30); //range specified below in test model
         }
 
+        [Fact]
+        public void Sprout_WithModelStaticAttributeOnBool_GeneratesExpectedBooleanValue()
+        {
+            //arrange
+            var implementation = BS.Sprout<IFoo>();
+
+            //act
+            IEnumerable<Foo> data = implementation.GetFoos();
+            Foo item = data.FirstOrDefault();
+
+            //assert
+            Assert.True(item.Active); //range specified below in test model
+        }
+
     }
 
     public interface IFoo
@@ -123,5 +137,8 @@ namespace BeanSprout.Test
         
         [Range(1,30)]
         public int Age { get; set; }
+
+        [Static(true)]
+        public bool Active { get; set; }
     }
 }
