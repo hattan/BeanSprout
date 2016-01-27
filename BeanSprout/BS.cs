@@ -111,6 +111,16 @@ namespace BeanSprout
                     var staticAttribute = attr as DataType.Static;
                     return staticAttribute != null ? staticAttribute.Value : "";
                 }
+
+                if (attr.GetType() == typeof(DataType.Range))
+                {
+                    var rangeAttribute = attr as DataType.Range;
+                    if (rangeAttribute != null)
+                    {
+                        return RandomNumber.Next(rangeAttribute.Min, rangeAttribute.Max);
+                    }
+                    throw new Exception("Error Casting attribute to BeanSprout.DataType.Range");
+                }
             }
 
             var pt = propInfo.PropertyType;

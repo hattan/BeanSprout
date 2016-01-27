@@ -90,6 +90,20 @@ namespace BeanSprout.Test
             Assert.Equal("Foo123", item.Custom);
         }
 
+        [Fact]
+        public void Sprout_WithModelRangeAttribute_GeneratesValueInRange()
+        {
+            //arrange
+            var implementation = BS.Sprout<IFoo>();
+
+            //act
+            IEnumerable<Foo> data = implementation.GetFoos();
+            Foo item = data.FirstOrDefault();
+
+            //assert
+            Assert.True(item.Age >=1 && item.Age <= 30); //range specified below in test model
+        }
+
     }
 
     public interface IFoo
@@ -106,5 +120,8 @@ namespace BeanSprout.Test
 
         [Static("Foo123")]
         public string Custom { get; set; }
+        
+        [Range(1,30)]
+        public int Age { get; set; }
     }
 }

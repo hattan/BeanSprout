@@ -37,4 +37,18 @@ namespace BeanSprout.DataType
         public string Value { get; set; }
     }
 
+    [AttributeUsage(AttributeTargets.Property)]
+    public class Range : Attribute
+    {
+
+        public Range(int min,int max)
+        {
+            Min = min;
+            Max = max;
+        }
+
+        public int Min { get; set; }
+        public int Max { get; set; }
+    }
+
 }
