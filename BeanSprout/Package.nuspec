@@ -2,8 +2,8 @@
 <package >
   <metadata>
     <id>Package</id>
-    <version>1.0.0</version>
-    <authors>hattan</authors>
+    <version>1.0.2</version>
+    <authors>Hattan Shobokshi</authors>
     <owners>hattan</owners>
     <licenseUrl>https://raw.githubusercontent.com/hattan/BeanSprout/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/hattan/BeanSprout</projectUrl>
