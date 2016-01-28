@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Package</id>
+    <version>1.0.2</version>
+    <authors>Hattan Shobokshi</authors>
+    <owners>hattan</owners>
+    <licenseUrl>https://raw.githubusercontent.com/hattan/BeanSprout/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/hattan/BeanSprout</projectUrl>
+    <iconUrl>https://camo.githubusercontent.com/74c5d76ac10a1487a3ad41d391360c4a170b8a26/687474703a2f2f692e696d6775722e636f6d2f653863737170662e706e67</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A data mocking tool for .NET applications</description>
+    <releaseNotes>Initial Release.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags></tags>
+    <dependencies>
+      <dependency id="Faker-cs-PCL" version="1.0" />
+     <dependency id="ImpromptuInterface" version="6.2.2" />
+    </dependencies>
+  </metadata>
+</package>

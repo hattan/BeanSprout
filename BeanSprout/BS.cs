@@ -117,7 +117,7 @@ namespace BeanSprout
 
                     if (pt == typeof (bool))
                     {
-                        return staticAttribute != null ? staticAttribute.BoolValue : false;
+                        return staticAttribute != null && staticAttribute.BoolValue;
                     }
 
                     return null;
