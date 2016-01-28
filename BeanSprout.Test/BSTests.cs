@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using BeanSprout.DataType;
 using Xunit;
 
@@ -28,7 +30,11 @@ namespace BeanSprout.Test
 
             [Static(true)]
             public bool Active { get; set; }
+
+            [Email]
+            public string Email { get; set; }
         }
+
         [Fact]
         public void Sprout_CreatesAnObjectFromInterface()
         {
@@ -140,7 +146,29 @@ namespace BeanSprout.Test
             Assert.True(item.Active); //range specified above in test model
         }
 
+        [Fact]
+        public void Sprout_WithModelEmailAttribute_GeneratesEmailFormatedValue()
+        {
+            //arrange
+            var implementation = BS.Sprout<IFoo>();
 
+            //act
+            IEnumerable<Foo> data = implementation.GetFoos();
+            Foo item = data.FirstOrDefault();
+
+            //assert
+            Assert.NotNull(item);
+
+            bool isEmail = Regex.IsMatch(item.Email,
+                @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                RegexOptions.IgnoreCase);
+
+            Assert.True(isEmail); 
+        }
+
+
+      
     }
 
 
