@@ -122,7 +122,7 @@ namespace BeanSprout.Test
 
             //assert
             Assert.NotNull(item);
-            Assert.True(item.Age >=1 && item.Age <= 30); //range specified below in test model
+            Assert.True(item.Age >=1 && item.Age <= 30); //range specified above in test model
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace BeanSprout.Test
 
             //assert
             Assert.NotNull(item);
-            Assert.True(item.Active); //range specified below in test model
+            Assert.True(item.Active); //range specified above in test model
         }
 
 
