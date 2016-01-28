@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BeanSprout.DataType;
 using Xunit;
 
@@ -10,6 +7,28 @@ namespace BeanSprout.Test
 {
     public class BSTests
     {
+        /* Test Objects*/
+        public interface IFoo
+        {
+            IEnumerable<Foo> GetFoos();
+        }
+
+        public class Foo
+        {
+            public int Id { get; set; }
+
+            [FullName]
+            public string Name { get; set; }
+
+            [Static("Foo123")]
+            public string Custom { get; set; }
+
+            [Range(1, 30)]
+            public int Age { get; set; }
+
+            [Static(true)]
+            public bool Active { get; set; }
+        }
         [Fact]
         public void Sprout_CreatesAnObjectFromInterface()
         {
@@ -87,6 +106,7 @@ namespace BeanSprout.Test
             Foo item = data.FirstOrDefault();
 
             //assert
+            Assert.NotNull(item);
             Assert.Equal("Foo123", item.Custom);
         }
 
@@ -101,6 +121,7 @@ namespace BeanSprout.Test
             Foo item = data.FirstOrDefault();
 
             //assert
+            Assert.NotNull(item);
             Assert.True(item.Age >=1 && item.Age <= 30); //range specified below in test model
         }
 
@@ -115,30 +136,12 @@ namespace BeanSprout.Test
             Foo item = data.FirstOrDefault();
 
             //assert
+            Assert.NotNull(item);
             Assert.True(item.Active); //range specified below in test model
         }
 
+
     }
 
-    public interface IFoo
-    {
-        IEnumerable<Foo> GetFoos();
-    }
 
-    public class Foo
-    {
-        public int Id { get; set; }
-
-        [FullName]
-        public string Name { get; set; }
-
-        [Static("Foo123")]
-        public string Custom { get; set; }
-        
-        [Range(1,30)]
-        public int Age { get; set; }
-
-        [Static(true)]
-        public bool Active { get; set; }
-    }
 }
