@@ -3,7 +3,7 @@ A data mocking tool for .NET applications.
 
 BeanSprout automatically creates a concrete instance of your repository interfaces and generates fake data. This is useful for generating design time data.
 
-```
+```csharp
   public interface IFoo
   {
       IEnumerable<Foo> GetFoos();
