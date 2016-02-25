@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Reflection;
 using Faker;
 using ImpromptuInterface;
@@ -20,17 +21,54 @@ namespace BeanSprout
             {
                 string name = method.Name;
                 Type returnType = method.ReturnType;
-                tOriginal.Add(name, CreateMethod(returnType, count));
+                var parameters = method.GetParameters();
+                var paramCount = parameters.Count();
+                switch (paramCount)
+                {
+                    case 0:
+                        tOriginal.Add(name, CreateMethod(returnType, count));
+                        break;
+                    case 1:
+                        tOriginal.Add(name, CreateMethodOne(returnType, count));
+                        break;
+                    case 2:
+                          tOriginal.Add(name, CreateMethodTwo(returnType, count));
+                        break;
+                    case 3:
+                          tOriginal.Add(name, CreateMethodThree(returnType, count));
+                        break;
+                    case 4:
+                          tOriginal.Add(name, CreateMethodFour(returnType, count));
+                        break;
+                }
+                
             }
 
             T tActsLike = tOriginal.ActLike();
             return tActsLike;
         }
-
         private static Func<object> CreateMethod(Type returnType, int count)
         {
             return () => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
         }
+        private static Func<object,object> CreateMethodOne(Type returnType, int count)
+        {
+                return a => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+        }
+        private static Func<object, object, object> CreateMethodTwo(Type returnType, int count)
+        {
+            return (a,b) => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+        }
+        private static Func<object, object, object, object> CreateMethodThree(Type returnType, int count)
+        {
+            return (a, b,c) => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+        }
+        private static Func<object, object, object, object,object> CreateMethodFour(Type returnType, int count)
+        {
+            return (a, b, c,d) => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+        }
+
+      
 
         private static IList CreateEnumerable(Type returnType, int count)
         {

@@ -118,11 +118,30 @@ namespace BeanSprout.Test
             Assert.True(item.Active); //range specified below in test model
         }
 
+        [Fact]
+        public void Sprout_WithInterfaceThatIncludesParameters_GeneratesExpectedValues()
+        {
+            //arrange
+            var implementation = BS.Sprout<IBoo>();
+
+            //act
+            IEnumerable<Foo> data = implementation.GetFoos("test",false,3);
+            Foo item = data.FirstOrDefault();
+
+            //assert
+            Assert.True(item.Active); //range specified below in test model
+        }
+
     }
 
     public interface IFoo
     {
         IEnumerable<Foo> GetFoos();
+    }
+
+    public interface IBoo
+    {
+        IEnumerable<Foo> GetFoos(string fooId,bool boo,int min);
     }
 
     public class Foo
