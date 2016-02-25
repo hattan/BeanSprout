@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using BeanSprout.DataType;
 using Xunit;
 
@@ -10,6 +8,8 @@ namespace BeanSprout.Test
 {
     public class BSTests
     {
+        /* Test Objects*/
+
         [Fact]
         public void Sprout_CreatesAnObjectFromInterface()
         {
@@ -87,6 +87,7 @@ namespace BeanSprout.Test
             Foo item = data.FirstOrDefault();
 
             //assert
+            Assert.NotNull(item);
             Assert.Equal("Foo123", item.Custom);
         }
 
@@ -101,7 +102,8 @@ namespace BeanSprout.Test
             Foo item = data.FirstOrDefault();
 
             //assert
-            Assert.True(item.Age >=1 && item.Age <= 30); //range specified below in test model
+            Assert.NotNull(item);
+            Assert.True(item.Age >= 1 && item.Age <= 30); //range specified above in test model
         }
 
         [Fact]
@@ -115,7 +117,8 @@ namespace BeanSprout.Test
             Foo item = data.FirstOrDefault();
 
             //assert
-            Assert.True(item.Active); //range specified below in test model
+            Assert.NotNull(item);
+            Assert.True(item.Active); //range specified above in test model
         }
 
         [Fact]
@@ -125,39 +128,58 @@ namespace BeanSprout.Test
             var implementation = BS.Sprout<IBoo>();
 
             //act
-            IEnumerable<Foo> data = implementation.GetFoos("test",false,3);
+            IEnumerable<Foo> data = implementation.GetFoos("test", false, 3);
             Foo item = data.FirstOrDefault();
 
             //assert
             Assert.True(item.Active); //range specified below in test model
         }
 
-    }
+        public void Sprout_WithModelEmailAttribute_GeneratesEmailFormatedValue()
+        {
+            //arrange
+            var implementation = BS.Sprout<IFoo>();
 
-    public interface IFoo
-    {
-        IEnumerable<Foo> GetFoos();
-    }
 
-    public interface IBoo
-    {
-        IEnumerable<Foo> GetFoos(string fooId,bool boo,int min);
-    }
+            //act
+            IEnumerable<Foo> data = implementation.GetFoos();
+            Foo item = data.FirstOrDefault();
+            bool isEmail = Regex.IsMatch(item.Email,
+                @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                RegexOptions.IgnoreCase);
 
-    public class Foo
-    {
-        public int Id { get; set; }
+            Assert.True(isEmail);
+        }
 
-        [FullName]
-        public string Name { get; set; }
+        public class Foo
+        {
+            public int Id { get; set; }
 
-        [Static("Foo123")]
-        public string Custom { get; set; }
-        
-        [Range(1,30)]
-        public int Age { get; set; }
+            [FullName]
+            public string Name { get; set; }
 
-        [Static(true)]
-        public bool Active { get; set; }
+            [Static("Foo123")]
+            public string Custom { get; set; }
+
+            [Range(1, 30)]
+            public int Age { get; set; }
+
+            [Static(true)]
+            public bool Active { get; set; }
+
+            [Email]
+            public string Email { get; set; }
+        }
+
+        public interface IBoo
+        {
+            IEnumerable<Foo> GetFoos(string fooId, bool boo, int min);
+        }
+
+        public interface IFoo
+        {
+            IEnumerable<Foo> GetFoos();
+        }
     }
 }
