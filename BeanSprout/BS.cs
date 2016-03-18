@@ -49,23 +49,23 @@ namespace BeanSprout
         }
         private static Func<object> CreateMethod(Type returnType, int count)
         {
-            return () => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+            return () => returnType.GetTypeInfo().IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
         }
         private static Func<object,object> CreateMethodOne(Type returnType, int count)
         {
-                return a => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+                return a => returnType.GetTypeInfo().IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
         }
         private static Func<object, object, object> CreateMethodTwo(Type returnType, int count)
         {
-            return (a,b) => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+            return (a,b) => returnType.GetTypeInfo().IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
         }
         private static Func<object, object, object, object> CreateMethodThree(Type returnType, int count)
         {
-            return (a, b,c) => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+            return (a, b,c) => returnType.GetTypeInfo().IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
         }
         private static Func<object, object, object, object,object> CreateMethodFour(Type returnType, int count)
         {
-            return (a, b, c,d) => returnType.IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
+            return (a, b, c,d) => returnType.GetTypeInfo().IsInterface && returnType.Name.Contains("IEnumerable") ? CreateEnumerable(returnType, count) : null;
         }
 
       
